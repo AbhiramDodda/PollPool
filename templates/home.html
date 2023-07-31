@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="../static/root.js"></script>
+    <title>Home</title>
+  </head>
+  <body>
+    <section>
+      <div>
+        <form action="/login" name="login_form" method="POST">
+          <label>Username</label>
+          <input type="text" name="username" required />
+          <label>Password</label>
+          <input type="password" name="password" required />
+          <input type="submit" value="Login" />
+        </form>
+        <div>
+          <p id="error_display"></p>
+        </div>
+      </div>
+      <div>
+        <form action="/signup">
+          <label>Not a user? signup</label>
+          <input type="submit" value="Signin" />
+        </form>
+      </div>
+    </section>
+  </body>
+</html>

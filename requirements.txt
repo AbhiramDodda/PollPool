@@ -1,0 +1,9 @@
+flask
+flask-sqlalchemy
+flask-security-too
+celery
+redis
+bcrypt
+matplotlib
+email-validator
+secure-smtplib

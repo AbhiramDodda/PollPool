@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PollPool</title>
+  </head>
+  <body>
+    <section>
+      <div>
+        <h2>Welcome {{ username }}</h2>
+      </div>
+      <div>
+        <a href="{{ user_id }}/create_poll">Create Poll</a>
+        <a href="{{ user_id }}/profile">Profile</a>
+        <a href="/logout">Logout</a>
+      </div>
+    </section>
+    <section>
+      {% if polls|length == 0 %}
+      <h2>No polls are available</h2>
+      {% else %}
+      <div>
+        <ul>
+          {% for poll in polls %}
+          <li>
+            <div>
+              <p>Poll name: {{ poll.poll_name }}</p>
+              <p>Last date: {{ poll.last_date }}</p>
+            </div>
+            <div>
+              <form action="{{ poll.poll_id}}/poll_submit" method="POST">
+                <select name="candidate_select">
+                  {% for candidate in poll.candidates %}
+                  <option value="{{ candidate.name }}">
+                    {{ candidate.name }}
+                  </option>
+                  {% endfor %}
+                </select>
+                <input type="submit" value="Poll" />
+              </form>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </section>
+  </body>
+</html>

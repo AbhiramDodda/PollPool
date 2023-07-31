@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="../static/createpoll.js"></script>
+    <title>PollPool</title>
+    <style>
+      ul li {
+        cursor: pointer;
+        padding: 12px 8px 12px 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <div>
+        <h2>Welcome {{ username }}</h2>
+      </div>
+      <div>
+        <a href="{{ user_id }}/create_poll">Create Poll</a>
+        <a href="{{ user_id }}/profile">Profile</a>
+        <a href="/logout">Logout</a>
+      </div>
+    </section>
+    <section>
+      <input type="hidden" value="{{ username }}" id="username" />
+      <label>Enter name of candidate:</label>
+      <input id="candidate_input" type="text" onkeyup="check()" />
+      <br />
+      <p id="can_exist"></p>
+      <button onclick="candidateAdded()">Add</button>
+      <ul id="show_candidates"></ul>
+      <br />
+      <label>Start Date</label>
+      <input type="date" id="start_date_input" required />
+      <label>End Date</label>
+      <input
+        type="date"
+        id="end_date_input"
+        placeholder="YYYY-MM-DD"
+        required
+      />
+      <button onclick="pollCreated()">Create Poll</button>
+    </section>
+  </body>
+</html>
