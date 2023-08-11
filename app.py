@@ -1,16 +1,16 @@
 from flask import Flask, session, render_template, request, redirect, url_for
 import os
-from Helpers.helpers import checkAuthentication, validateInput, newUser
+from Helpers.helpers import checkAuthentication, validateInput, newUser, getUserPolls, getAllPolls, getDisplayPolls
 from flask_security import Security
 from database.db import mongo, db
 from flask_restful import Api
-from API.api import CreatePoll
+from API.api import CreatePoll, DeletePoll
 
 
 
 def create_app():
     app = Flask(__name__) 
-    app.config['MONGO_URI'] = "mongodb+srv://abhiramdodda:AbhiramMongoDB9@cluster0.j0flmnk.mongodb.net/PollDB?retryWrites=true&w=majority"
+    app.config['MONGO_URI'] = "mongodb://localhost:27017/PollDB"
     app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///D:\Web\PollingApp\database\database.sqlite3"
     mongo.init_app(app)
     db.init_app(app)
@@ -39,7 +39,7 @@ def userlogin():
         if checkAuthentication('user',username,password):
             session['user'] = username
             return redirect(url_for('userdashboard'))
-        return render_template("error.html", message="Invalid credentials", link = '/user', where = "Login again")
+        return render_template("error.html", message="Invalid credentials", link = '/', where = "Login again")
 
 @app.route('/signup')
 def userregister():
@@ -60,16 +60,26 @@ def userregistration():
             return render_template("error.html", message="Username exists", link = '/userregister', where = "Go back")
         return render_template("error.html", message = result, link = '/userregister', where = "Go back")
 
-@app.route('/<string:user_id>/create_poll')
-def create_poll(user_id):
-    return render_template('createpoll.html', username = user_id)
-
 @app.route('/userdashboard')
 def userdashboard():
-    return render_template("userdashboard.html", user_id = session['user'])
+    pollsData = getDisplayPolls(session['user'])
+    return render_template("userdashboard.html", user_id = session['user'], polls = pollsData)
 
+@app.route('/<string:userid>/create_poll')
+def createPoll(userid):
+    return render_template('createpoll.html', username=session['user'])
+
+@app.route('/<string:userid>/profile')
+def profile(userid):
+    data = getUserPolls(session['user'])
+    return render_template("userprofile.html", polls = data)
+
+@app.route('/<string:pollid>/deletepoll')
+def deletePoll(pollid):
+    return render_template('polldeleteconfirm.html', pollid = pollid)
 
 api.add_resource(CreatePoll,'/pollapi/create')
+api.add_resource(DeletePoll,'/pollapi/delete')
 
 if __name__ == '__main__':
     app.run()

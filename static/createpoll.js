@@ -12,7 +12,7 @@ function candidateAdded() {
   e.appendChild(t);
   document.getElementById("candidate_input").value = "";
   let sp = document.createElement("SPAN");
-  let txt = document.createTextNode("X");
+  let txt = document.createTextNode("delete");
   sp.className = "close";
   sp.appendChild(txt);
   e.appendChild(sp);
@@ -34,6 +34,8 @@ function check() {
   console.log(candidates_set);
   if (candidates_set.has(document.getElementById("candidate_input").value)) {
     document.getElementById("can_exist").innerHTML = "user exists";
+  } else {
+    document.getElementById("can_exist").innerHTML = "";
   }
 }
 

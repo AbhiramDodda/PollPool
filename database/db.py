@@ -6,3 +6,5 @@ mongo = PyMongo()
 
 engine = None
 db = SQLAlchemy()
+class dbConfig():
+    pass

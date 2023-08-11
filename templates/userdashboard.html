@@ -26,16 +26,14 @@
           {% for poll in polls %}
           <li>
             <div>
-              <p>Poll name: {{ poll.poll_name }}</p>
-              <p>Last date: {{ poll.last_date }}</p>
+              <p>Poll name: {{ poll['poll_name'] }}</p>
+              <p>Last date: {{ poll['enddate'][:10] }}</p>
             </div>
             <div>
-              <form action="{{ poll.poll_id}}/poll_submit" method="POST">
+              <form action="{{ poll['poll_id'] }}/poll_submit" method="POST">
                 <select name="candidate_select">
-                  {% for candidate in poll.candidates %}
-                  <option value="{{ candidate.name }}">
-                    {{ candidate.name }}
-                  </option>
+                  {% for candidate in poll['candidates'] %}
+                  <option value="{{ candidate[0] }}">{{ candidate[0] }}</option>
                   {% endfor %}
                 </select>
                 <input type="submit" value="Poll" />
